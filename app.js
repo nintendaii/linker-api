@@ -1,13 +1,14 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const config = require('config')
-var bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
+const routes = require('./routes');
 
 const app = express()
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use('/api/user', require('./routes/user/auth'))
+app.use(routes)
 
 const PORT = config.get('port')
 

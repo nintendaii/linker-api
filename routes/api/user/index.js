@@ -3,7 +3,8 @@ const router = Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 const {check,validationResult} = require('express-validator')
-const User = require('../../models/User')
+const User = require('../../../models/User')
+const userController = require('../../../controllers').userController
 
 router.post('/signup',
   [
@@ -12,22 +13,14 @@ router.post('/signup',
   ],
   async(req,res)=>{
   try {
-    console.log(req.body)
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array(), message: 'Invalid data' });
       }
-    const {email,password}=req.body
-    const candidate = await User.findOne({email})
-    if (candidate) {
-      return res.status(400).json({message:"User already exists"})
-    }
-    const hashedPassword = await bcrypt.hash(password,12)
-    let user = new User({ email, password: hashedPassword });
-    await user.save();
-    res.status(201).json({ message: 'User is created' });
+    let user = await userController.signup.signup(req.body);
+    res.status(user.status).json(user)
   } catch (error) {
-    res.status(500).json({message:"Something went wong ("})
+    res.status(400).json({message:"Something went wong ("+error})
   }
 })
 
@@ -43,24 +36,8 @@ router.post(
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array(), message: 'Invalid data' });
       }
-
-      const { email, password } = req.body;
-      const user = await User.findOne({ email });
-      if (!user) {
-        return res.status(400).json({ message: 'User is not found' });
-      }
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
-        return res.status(400).json({ message: 'Incorrect password' });
-      }
-
-      const token = jwt.sign(
-        {userId:user.id},
-        config.get('jwtSecret'),
-        {expiresIn: '1h'}
-      )
-
-      res.json({token, userId: user.id})
+      let userModel = await userController.login.login(req.body)
+      res.status(userModel.status).json(userModel)
     } catch (error) {
       res.status(500).json({ message: 'Something went wrong :(' });
     }
