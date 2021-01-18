@@ -1,0 +1,27 @@
+{
+  "name": "linkerapi",
+  "version": "1.0.0",
+  "description": "api to linker",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev":"nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nintendaii/linker-api.git"
+  },
+  "author": "Daniel Karshai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nintendaii/linker-api/issues"
+  },
+  "homepage": "https://github.com/nintendaii/linker-api#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.11.12"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
