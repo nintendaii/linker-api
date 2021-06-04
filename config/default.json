@@ -1,6 +1,6 @@
 {
   "port": 5000,
   "jwtSecret": "mern course goes brrr",
-  "mongoURI": "mongodb+srv://admin:admin@cluster0.f2pgb.mongodb.net/linkerdb?retryWrites=true&w=majority",
+  "mongoURI": "mongodb+srv://admin:admin@cluster0-jqwhz.mongodb.net/linkbase?retryWrites=true&w=majority",
   "baseUrl": "http://localhost:5000"
 }
