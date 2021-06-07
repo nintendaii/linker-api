@@ -1,9 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
-const User = require("../../../models/User");
 const userController = require("../../../controllers").userController;
 
 router.post(
