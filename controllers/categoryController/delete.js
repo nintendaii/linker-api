@@ -1,6 +1,6 @@
 const Category = require("../../models/Category");
 
-async function deleteCategory(categoryId, id) {
+async function deleteCategory(categoryId) {
   try {
     const candidate = await Category.findOne({ _id: categoryId });
     if (!candidate) {

@@ -18,7 +18,7 @@ router.post(
           .send({ errors: errors.array(), message: "Invalid data" });
       }
       let user = await userController.signup.signup(req.body);
-      res.status(user.status).json(user);
+      res.status(user.status).send({ message: user.message });
     } catch (error) {
       res.status(400).json({ message: "Something went wong (" + error });
     }

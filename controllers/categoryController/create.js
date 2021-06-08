@@ -3,7 +3,7 @@ const Category = require("../../models/Category");
 async function create(body, id) {
   try {
     const { title } = body;
-    const candidate = await Category.findOne({ title });
+    const candidate = await Category.findOne({ title, owner: id });
     if (candidate) {
       return { status: 400, message: "Category already exists" };
     }

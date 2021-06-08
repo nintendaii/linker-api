@@ -11,7 +11,7 @@ async function signup(body) {
     const hashedPassword = await bcrypt.hash(password, 12);
     let user = new User({ username, email, password: hashedPassword });
     await user.save();
-    return { status: 500, message: "User is created" };
+    return { status: 200, message: "User is created" };
   } catch (error) {
     return { status: 400, message: "Something went wong ( " + error };
   }
