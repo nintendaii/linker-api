@@ -1,13 +1,12 @@
 const { Router } = require("express");
 const { verifyToken } = require("../../../midleware/verifyToken");
 const router = Router();
-const categoryController = require("../../../controllers/").categoryController;
+const bookmarkController = require("../../../controllers/").bookmarkController;
 require("../../../midleware/verifyToken");
 
 router.post("/", [verifyToken], async (req, res) => {
   try {
-    const payload = req.payload;
-    const result = await categoryController.create.create(req.body, payload.id);
+    const result = await bookmarkController.create.create(req.body);
     res
       .status(result.status)
       .send({ message: result.message, data: result.data });
@@ -19,7 +18,7 @@ router.post("/", [verifyToken], async (req, res) => {
 router.get("/", [verifyToken], async (req, res) => {
   try {
     const payload = req.payload;
-    const result = await categoryController.get.get(payload.id);
+    const result = await bookmarkController.get.get(payload.id);
     res.status(result.status).send({ data: result.data });
   } catch (error) {
     res.status(400).json({ message: "Something went wong (" + error });
@@ -28,7 +27,7 @@ router.get("/", [verifyToken], async (req, res) => {
 
 router.get("/:id", [verifyToken], async (req, res) => {
   try {
-    const result = await categoryController.getOne.getOne(req.params.id);
+    const result = await bookmarkController.getOne.getOne(req.params.id);
     res.status(result.status).send({ data: result.data });
   } catch (error) {
     res.status(400).json({ message: "Something went wong (" + error });
@@ -37,7 +36,7 @@ router.get("/:id", [verifyToken], async (req, res) => {
 
 router.delete("/:id", [verifyToken], async (req, res) => {
   try {
-    const result = await categoryController.deleteCategory.deleteCategory(
+    const result = await bookmarkController.deleteCategory.deleteCategory(
       req.params.id
     );
     res.status(result.status).send({ message: result.message });
@@ -48,7 +47,7 @@ router.delete("/:id", [verifyToken], async (req, res) => {
 
 router.put("/:id", [verifyToken], async (req, res) => {
   try {
-    const result = await categoryController.edit.edit(
+    const result = await bookmarkController.edit.edit(
       req.params.id,
       req.body.title
     );
