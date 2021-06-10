@@ -7,7 +7,6 @@ require("../../../midleware/verifyToken");
 router.post("/", [verifyToken], async (req, res) => {
   try {
     const result = await bookmarkController.create.create(req.body);
-    //console.log(result.data);
     res
       .status(result.status)
       .send({ message: result.message, data: result.data });
@@ -37,7 +36,7 @@ router.get("/:id", [verifyToken], async (req, res) => {
 
 router.delete("/:id", [verifyToken], async (req, res) => {
   try {
-    const result = await bookmarkController.deleteCategory.deleteCategory(
+    const result = await bookmarkController.deleteBookmark.deleteBookmark(
       req.params.id
     );
     res.status(result.status).send({ message: result.message });

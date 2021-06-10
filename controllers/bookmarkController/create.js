@@ -4,7 +4,6 @@ const { getDOM } = require("../../helpers/getDOM");
 const { parseFavIco } = require("../../helpers/parseFavicon");
 const { parseTitle } = require("../../helpers/parseTitle");
 const { parseDescription } = require("../../helpers/parseDescription");
-var dom;
 
 async function create(body) {
   try {
@@ -13,7 +12,7 @@ async function create(body) {
     if (!catCandidate) {
       return { status: 400, message: "Category does not exist" };
     }
-    dom = await getDOM(link);
+    const dom = await getDOM(link);
     var favicon = await parseFavIco(dom, link);
     var title = await parseTitle(dom);
     var description = await parseDescription(dom);
