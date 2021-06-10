@@ -7,6 +7,7 @@ require("../../../midleware/verifyToken");
 router.post("/", [verifyToken], async (req, res) => {
   try {
     const result = await bookmarkController.create.create(req.body);
+    //console.log(result.data);
     res
       .status(result.status)
       .send({ message: result.message, data: result.data });
