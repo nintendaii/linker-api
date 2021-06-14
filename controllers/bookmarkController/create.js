@@ -12,6 +12,7 @@ async function create(body) {
     if (!catCandidate) {
       return { status: 400, message: "Category does not exist" };
     }
+    const catLinks = catCandidate.links;
     const dom = await getDOM(link);
     var favicon = await parseFavIco(dom, link);
     var title = await parseTitle(dom);
@@ -24,6 +25,11 @@ async function create(body) {
       category,
     });
     let result = await bookmark.save();
+    await Category.findOneAndUpdate(
+      { _id: category },
+      { links: [...catLinks, result.id] }
+    );
+    console.log(result);
     return { status: 200, message: "Bookmark created", data: result };
   } catch (error) {
     return { status: 400, message: "Something went wrong " + error };
