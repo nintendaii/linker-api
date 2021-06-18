@@ -5,7 +5,7 @@ const { parseFavIco } = require("../../helpers/parseFavicon");
 const { parseTitle } = require("../../helpers/parseTitle");
 const { parseDescription } = require("../../helpers/parseDescription");
 
-async function create(body) {
+async function create(body, userId) {
   try {
     const { link, category } = body;
     const catCandidate = await Category.findById(category);
@@ -17,12 +17,16 @@ async function create(body) {
     var favicon = await parseFavIco(dom, link);
     var title = await parseTitle(dom);
     var description = await parseDescription(dom);
+    var owner = userId;
+    var date = new Date();
     const bookmark = new Bookmark({
       title,
       description,
       favicon,
       link,
       category,
+      date,
+      owner,
     });
     let result = await bookmark.save();
     await Category.findOneAndUpdate(

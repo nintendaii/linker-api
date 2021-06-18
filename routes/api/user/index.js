@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 const { check, validationResult } = require("express-validator");
+const { verifyToken } = require("../../../midleware/verifyToken");
 const userController = require("../../../controllers").userController;
 
 router.post(
@@ -18,7 +19,7 @@ router.post(
           .send({ errors: errors.array(), message: "Invalid data" });
       }
       let user = await userController.signup.signup(req.body);
-      res.status(user.status).send({ message: user.message });
+      res.status(user.status).send(user);
     } catch (error) {
       res.status(400).json({ message: "Something went wong (" + error });
     }
@@ -49,5 +50,15 @@ router.post(
     }
   }
 );
+
+router.get("", [verifyToken], async (req, res) => {
+  try {
+    const payload = req.payload;
+    let userModel = await userController.getMainData.getMainData(payload.id);
+    res.status(userModel.status).send(userModel);
+  } catch (error) {
+    res.status(500).send({ message: "Something went wrong :(" });
+  }
+});
 
 module.exports = router;

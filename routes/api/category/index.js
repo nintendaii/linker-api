@@ -2,7 +2,6 @@ const { Router } = require("express");
 const { verifyToken } = require("../../../midleware/verifyToken");
 const router = Router();
 const categoryController = require("../../../controllers/").categoryController;
-require("../../../midleware/verifyToken");
 
 router.post("/", [verifyToken], async (req, res) => {
   try {

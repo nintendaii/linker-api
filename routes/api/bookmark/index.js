@@ -6,7 +6,8 @@ require("../../../midleware/verifyToken");
 
 router.post("/", [verifyToken], async (req, res) => {
   try {
-    const result = await bookmarkController.create.create(req.body);
+    const payload = req.payload;
+    const result = await bookmarkController.create.create(req.body, payload.id);
     res
       .status(result.status)
       .send({ message: result.message, data: result.data });
@@ -18,7 +19,7 @@ router.post("/", [verifyToken], async (req, res) => {
 router.get("/", [verifyToken], async (req, res) => {
   try {
     const payload = req.payload;
-    const result = await bookmarkController.get.get(payload.id);
+    const result = await bookmarkController.getAll.getAll(payload.id);
     res.status(result.status).send({ data: result.data });
   } catch (error) {
     res.status(400).json({ message: "Something went wong (" + error });

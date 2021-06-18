@@ -22,7 +22,6 @@ async function login(body) {
     const token = jwt.sign({ payload }, config.get("jwtSecret"), {
       expiresIn: "1h",
     });
-
     return { status: 200, token, userId: user.id };
   } catch (error) {
     return { status: 400, message: "Something went wong ( " + error };

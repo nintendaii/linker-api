@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const User = require("../../models/User");
-
+const login = require("./login");
 async function signup(body) {
   try {
     const { username, email, password } = body;
@@ -11,7 +11,9 @@ async function signup(body) {
     const hashedPassword = await bcrypt.hash(password, 12);
     let user = new User({ username, email, password: hashedPassword });
     await user.save();
-    return { status: 200, message: "User is created" };
+    const result = await login.login({ email, password });
+    console.log(result);
+    return result;
   } catch (error) {
     return { status: 400, message: "Something went wong ( " + error };
   }

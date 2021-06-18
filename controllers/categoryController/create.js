@@ -1,4 +1,5 @@
 const Category = require("../../models/Category");
+const User = require("../../models/User");
 
 async function create(body, id) {
   try {
@@ -9,6 +10,11 @@ async function create(body, id) {
     }
     let category = new Category({ title, owner: id });
     let data = await category.save();
+    let user = await User.findById(id);
+    await User.findOneAndUpdate(
+      { _id: id },
+      { tables: [...user.tables, data] }
+    );
     return { status: 200, message: "Category created", data };
   } catch (error) {
     return { status: 400, message: "Something went wong ( " + error };
