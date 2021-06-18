@@ -10,4 +10,8 @@ router.use("/user", userRouter);
 router.use("/category", categoryRouter);
 router.use("/bookmark", bookmarkRouter);
 
+router.get("/", (req, res) => {
+  res.send("Welcome to the linker-api!");
+});
+
 module.exports = router;
