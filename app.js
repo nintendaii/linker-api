@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(routes);
 
-const PORT = config.get("port") || process.env.PORT;
+const PORT = config.get("port");
 
 async function start() {
   try {
@@ -22,7 +22,9 @@ async function start() {
       useCreateIndex: true,
       useFindAndModify: false,
     });
-    app.listen(PORT, () => console.log(`App is started on port ${PORT}`));
+    app.listen(process.env.PORT || PORT, () =>
+      console.log(`App is started on port ${PORT}`)
+    );
   } catch (error) {
     console.log("error" + error);
     process.exit(1);
