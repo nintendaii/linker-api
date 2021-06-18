@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(routes);
 
-const PORT = config.get("port");
+const PORT = config.get("port") || process.env.PORT;
 
 async function start() {
   try {
