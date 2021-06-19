@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 
 const userRouter = require("./user");
 const categoryRouter = require("./category");
@@ -11,7 +12,7 @@ router.use("/category", categoryRouter);
 router.use("/bookmark", bookmarkRouter);
 
 router.get("/", (req, res) => {
-  res.send("Welcome to the linker-api!");
+  res.sendFile(path.resolve(__dirname + "/../../home.html"));
 });
 
 module.exports = router;

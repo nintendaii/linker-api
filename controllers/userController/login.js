@@ -8,11 +8,11 @@ async function login(body) {
     const { email, password } = body;
     const user = await User.findOne({ email });
     if (!user) {
-      return { status: 400, message: "User is not found" };
+      return { status: 404, code: "user_not_found" };
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return { status: 400, message: "Incorrect password" };
+      return { status: 400, code: "invalid_password" };
     }
     const payload = {
       id: user.id,
@@ -22,7 +22,7 @@ async function login(body) {
     const token = jwt.sign({ payload }, config.get("jwtSecret"), {
       expiresIn: "1h",
     });
-    return { status: 200, token, userId: user.id };
+    return { status: 200, token };
   } catch (error) {
     return { status: 400, message: "Something went wong ( " + error };
   }

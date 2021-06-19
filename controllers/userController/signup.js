@@ -4,9 +4,13 @@ const login = require("./login");
 async function signup(body) {
   try {
     const { username, email, password } = body;
-    const candidate = await User.findOne({ email });
-    if (candidate) {
-      return { status: 400, message: "User already exists" };
+    const candidateEmail = await User.findOne({ email });
+    if (candidateEmail) {
+      return { status: 400, code: "user_exists" };
+    }
+    const candidateName = await User.findOne({ username });
+    if (candidateName) {
+      return { status: 400, code: "user_exists" };
     }
     const hashedPassword = await bcrypt.hash(password, 12);
     let user = new User({ username, email, password: hashedPassword });
