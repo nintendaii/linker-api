@@ -9,14 +9,19 @@ async function getMainData(userId) {
   try {
     const user = await User.findById(userId);
     if (!user) {
-      return { status: 400, message: "User is not found" };
+      return { status: 404, code: "user_not_found" };
     }
     const tables = await Category.find({ owner: userId });
     const allLinks = await Bookmark.find({ owner: userId });
-    const userData = { username: user.username, categories: tables, allLinks };
+    const userData = {
+      id: user.id,
+      username: user.username,
+      categories: tables,
+      allLinks,
+    };
     return { status: 200, data: userData };
   } catch (error) {
-    return { status: 400, message: "Something went wong ( " + error };
+    return { status: 400, code: "Something went wong ( " + error };
   }
 }
 

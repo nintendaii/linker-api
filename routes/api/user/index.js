@@ -27,7 +27,7 @@ router.post(
       let { status, ...dataToSend } = user;
       res.status(user.status).send(dataToSend);
     } catch (error) {
-      res.status(400).json({ message: "Something went wong (" + error });
+      res.status(400).json({ code: "Something went wong (" + error });
     }
   }
 );
@@ -56,7 +56,7 @@ router.post(
       let { status, ...dataToSend } = userModel;
       res.status(userModel.status).send(dataToSend);
     } catch (error) {
-      res.status(500).send({ message: "Something went wrong :(" });
+      res.status(500).send({ code: "Something went wrong :(" });
     }
   }
 );
@@ -67,7 +67,7 @@ router.get("", [verifyToken], async (req, res) => {
     let userModel = await userController.getMainData.getMainData(payload.id);
     res.status(userModel.status).send(userModel);
   } catch (error) {
-    res.status(500).send({ message: "Something went wrong :(" });
+    res.status(500).send({ code: "Something went wrong :(" });
   }
 });
 

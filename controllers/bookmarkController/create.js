@@ -10,7 +10,7 @@ async function create(body, userId) {
     const { link, category } = body;
     const catCandidate = await Category.findById(category);
     if (!catCandidate) {
-      return { status: 400, message: "Category does not exist" };
+      return { status: 400, code: "category_doesnt_exist" };
     }
     const catLinks = catCandidate.links;
     const dom = await getDOM(link);
@@ -34,9 +34,9 @@ async function create(body, userId) {
       { links: [...catLinks, result.id] }
     );
     console.log(result);
-    return { status: 200, message: "Bookmark created", data: result };
+    return { status: 200, code: "bookmark_created", data: result };
   } catch (error) {
-    return { status: 400, message: "Something went wrong " + error };
+    return { status: 400, code: "Something went wrong " + error };
   }
 }
 

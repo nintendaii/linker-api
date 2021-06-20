@@ -6,7 +6,7 @@ async function create(body, id) {
     const { title } = body;
     const candidate = await Category.findOne({ title, owner: id });
     if (candidate) {
-      return { status: 400, message: "Category already exists" };
+      return { status: 400, code: "category_exists" };
     }
     let category = new Category({ title, owner: id });
     let data = await category.save();
@@ -15,9 +15,9 @@ async function create(body, id) {
       { _id: id },
       { tables: [...user.tables, data] }
     );
-    return { status: 200, message: "Category created", data };
+    return { status: 200, code: "category_created", data };
   } catch (error) {
-    return { status: 400, message: "Something went wong ( " + error };
+    return { status: 400, code: "Something went wong ( " + error };
   }
 }
 

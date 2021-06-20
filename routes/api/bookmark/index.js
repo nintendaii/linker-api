@@ -8,11 +8,9 @@ router.post("/", [verifyToken], async (req, res) => {
   try {
     const payload = req.payload;
     const result = await bookmarkController.create.create(req.body, payload.id);
-    res
-      .status(result.status)
-      .send({ message: result.message, data: result.data });
+    res.status(result.status).send({ code: result.code, data: result.data });
   } catch (error) {
-    res.status(400).json({ message: "Something went wong (" + error });
+    res.status(400).json({ code: "Something went wong (" + error });
   }
 });
 
@@ -22,7 +20,7 @@ router.get("/", [verifyToken], async (req, res) => {
     const result = await bookmarkController.getAll.getAll(payload.id);
     res.status(result.status).send({ data: result.data });
   } catch (error) {
-    res.status(400).json({ message: "Something went wong (" + error });
+    res.status(400).json({ code: "Something went wong (" + error });
   }
 });
 
@@ -31,7 +29,7 @@ router.get("/:id", [verifyToken], async (req, res) => {
     const result = await bookmarkController.getOne.getOne(req.params.id);
     res.status(result.status).send({ data: result.data });
   } catch (error) {
-    res.status(400).json({ message: "Something went wong (" + error });
+    res.status(400).json({ code: "Something went wong (" + error });
   }
 });
 
@@ -40,9 +38,9 @@ router.delete("/:id", [verifyToken], async (req, res) => {
     const result = await bookmarkController.deleteBookmark.deleteBookmark(
       req.params.id
     );
-    res.status(result.status).send({ message: result.message });
+    res.status(result.status).send({ code: result.code });
   } catch (error) {
-    res.status(400).json({ message: "Something went wong (" + error });
+    res.status(400).json({ code: "Something went wong (" + error });
   }
 });
 
@@ -52,9 +50,9 @@ router.put("/:id", [verifyToken], async (req, res) => {
       req.params.id,
       req.body.title
     );
-    res.status(result.status).send({ message: result.message });
+    res.status(result.status).send({ code: result.code });
   } catch (error) {
-    res.status(400).json({ message: "Something went wong (" + error });
+    res.status(400).json({ code: "Something went wong (" + error });
   }
 });
 
