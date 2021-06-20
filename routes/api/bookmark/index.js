@@ -48,7 +48,7 @@ router.put("/:id", [verifyToken], async (req, res) => {
   try {
     const result = await bookmarkController.edit.edit(
       req.params.id,
-      req.body.title
+      req.body.category
     );
     res.status(result.status).send({ code: result.code });
   } catch (error) {
