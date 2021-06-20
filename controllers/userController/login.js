@@ -12,7 +12,7 @@ async function login(body) {
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return { status: 400, code: "invalid_password" };
+      return { status: 400, code: "incorrect_password" };
     }
     const payload = {
       id: user.id,

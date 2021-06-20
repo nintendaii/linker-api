@@ -65,7 +65,8 @@ router.get("", [verifyToken], async (req, res) => {
   try {
     const payload = req.payload;
     let userModel = await userController.getMainData.getMainData(payload.id);
-    res.status(userModel.status).send(userModel);
+    let { status, ...dataToSend } = userModel;
+    res.status(userModel.status).send(dataToSend);
   } catch (error) {
     res.status(500).send({ code: "Something went wrong :(" });
   }

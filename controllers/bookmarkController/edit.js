@@ -3,9 +3,6 @@ const Category = require("../../models/Category");
 
 async function edit(bookmarkId, categoryId) {
   try {
-    if (categoryId == null || categoryId == "" || categoryId == " ") {
-      return { status: 400, code: "invalid_category" };
-    }
     const candidateBookmark = await Bookmark.findById(bookmarkId);
     if (!candidateBookmark) {
       return { status: 404, code: "bookmark_doesnt_exist" };
