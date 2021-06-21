@@ -8,11 +8,14 @@ const { parseDescription } = require("../../helpers/parseDescription");
 async function create(body, userId) {
   try {
     const { link, category } = body;
-    const catCandidate = await Category.findById(category);
-    if (!catCandidate) {
-      return { status: 400, code: "category_doesnt_exist" };
+    var catCandidate = null;
+    if (category) {
+      catCandidate = await Category.findById(category);
+      if (!catCandidate) {
+        return { status: 400, code: "category_doesnt_exist" };
+      }
     }
-    const catLinks = catCandidate.links;
+
     const dom = await getDOM(link);
     var favicon = await parseFavIco(dom, link);
     var title = await parseTitle(dom);
@@ -29,11 +32,14 @@ async function create(body, userId) {
       owner,
     });
     let result = await bookmark.save();
-    await Category.findOneAndUpdate(
-      { _id: category },
-      { links: [...catLinks, result.id] }
-    );
-    console.log(result);
+    if (category) {
+      const catLinks = catCandidate.links;
+      await Category.findOneAndUpdate(
+        { _id: category },
+        { links: [...catLinks, result.id] }
+      );
+    }
+
     return { status: 200, code: "bookmark_created", data: result };
   } catch (error) {
     return { status: 400, code: "Something went wrong " + error };
