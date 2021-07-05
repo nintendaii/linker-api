@@ -7,8 +7,9 @@ async function parseFavIco(dom, link) {
   allIcons.forEach((icon) => {
     let favRef = icon.getAttribute("href").toString();
     if (!favRef.includes("http")) {
-      let splits = link.split("/", 3);
-      a.push(splits[0] + "//" + splits[2] + favRef);
+      let googleS2Link =
+        "https://s2.googleusercontent.com/s2/favicons?domain_url=" + link;
+      a.push(googleS2Link);
       return;
     }
     a.push(favRef);
