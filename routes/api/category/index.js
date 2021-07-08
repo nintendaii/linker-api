@@ -5,7 +5,6 @@ const categoryController = require("../../../controllers/").categoryController;
 
 router.post("/", [verifyToken], async (req, res) => {
   try {
-    console.log(req.body);
     const payload = req.payload;
     const result = await categoryController.create.create(req.body, payload.id);
     res.status(result.status).send({ code: result.code, data: result.data });
