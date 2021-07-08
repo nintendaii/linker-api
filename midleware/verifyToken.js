@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 
 function verifyToken(req, res, next) {
-  console.log(req);
+  console.log(req.headers);
   const headers = req.headers["authorization"];
   if (typeof headers == "undefined")
     return res.status(403).send({ code: "no_auth_header" });
