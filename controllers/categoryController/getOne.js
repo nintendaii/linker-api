@@ -4,7 +4,6 @@ const Category = require("../../models/Category");
 async function getOne(id) {
   try {
     let category = await Category.findOne({ _id: id });
-    console.log(category);
     if (!category) {
       return { status: 404, code: "category_doesnt_exist" };
     }

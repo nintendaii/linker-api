@@ -2,9 +2,7 @@ const Bookmark = require("../../models/Bookmark");
 
 async function deleteBookmark(bookmarkId) {
   try {
-    console.log(bookmarkId);
     const candidate = await Bookmark.findOne({ _id: bookmarkId });
-    console.log(candidate);
     if (!candidate) {
       return { status: 404, code: "bookmark_doesnt_exist" };
     }

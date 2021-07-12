@@ -15,9 +15,7 @@ async function edit(bookmarkId, categoryId) {
       return { status: 400, code: "category_match" };
     }
     let oldCat = await Category.findById(candidateBookmark.category);
-    console.log(oldCat.links);
     let filteredLinks = oldCat.links.filter((el) => el != bookmarkId);
-    console.log(filteredLinks);
     await Category.findOneAndUpdate(
       { _id: candidateBookmark.category },
       { $set: { links: filteredLinks } }
