@@ -6,8 +6,8 @@ const schema = new Schema({
   favicon: [{ type: String, required: true }],
   link: { type: String, required: true },
   date: { type: Date, required: true },
-  owner: { type: Schema.Types.ObjectId, ref: "User" },
-  category: { type: Schema.Types.ObjectId, ref: "Category" },
+  owner: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
 });
 
 module.exports = model("Bookmark", schema);

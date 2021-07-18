@@ -8,14 +8,10 @@ const { parseDescription } = require("../../helpers/parseDescription");
 async function create(body, userId) {
   try {
     const { link, category } = body;
-    var catCandidate = null;
-    if (category) {
-      catCandidate = await Category.findById(category);
-      if (!catCandidate) {
-        return { status: 400, code: "category_doesnt_exist" };
-      }
+    catCandidate = await Category.findById(category);
+    if (!catCandidate) {
+      return { status: 400, code: "category_doesnt_exist" };
     }
-
     const dom = await getDOM(link);
     var favicon = await parseFavIco(dom, link);
     var title = await parseTitle(dom);
