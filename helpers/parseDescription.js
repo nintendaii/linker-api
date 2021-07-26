@@ -12,7 +12,7 @@ async function parseDescription(dom) {
     }
     return description.toString();
   } catch (error) {
-    console.error(error);
+    console.error("From catch: " + error);
     return "No description.";
   }
 }

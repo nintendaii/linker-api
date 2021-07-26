@@ -20,8 +20,8 @@ async function parseFavIco(dom, link) {
     });
     return a;
   } catch (error) {
-    console.error(error);
-    return [];
+    console.error("From catch: " + error);
+    return "https://s2.googleusercontent.com/s2/favicons?domain_url=" + link;
   }
 }
 

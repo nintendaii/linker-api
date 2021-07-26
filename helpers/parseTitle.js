@@ -6,7 +6,7 @@ async function parseTitle(dom) {
     let title = root.querySelectorAll("title")[0].innerText;
     return title.toString();
   } catch (error) {
-    console.error(error);
+    console.error("From catch: " + error);
     return "No title";
   }
 }
