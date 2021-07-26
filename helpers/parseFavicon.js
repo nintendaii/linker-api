@@ -5,8 +5,10 @@ async function parseFavIco(dom, link) {
     const root = HTMLParser.parse(dom);
     let allIcons = root.querySelectorAll('[rel="icon"], [rel="shortcut icon"]');
     let a = [];
-    if (!allIcons) {
-      return a;
+    if (!allIcons || allIcons.length == 0) {
+      return [
+        "https://s2.googleusercontent.com/s2/favicons?domain_url=" + link,
+      ];
     }
     allIcons.forEach((icon) => {
       let favRef = icon.getAttribute("href").toString();
@@ -21,7 +23,7 @@ async function parseFavIco(dom, link) {
     return a;
   } catch (error) {
     console.error("From catch: " + error);
-    return "https://s2.googleusercontent.com/s2/favicons?domain_url=" + link;
+    return ["https://s2.googleusercontent.com/s2/favicons?domain_url=" + link];
   }
 }
 

@@ -14,9 +14,9 @@ async function create(body, userId) {
     }
     const dom = await getDOM(link);
     var favicon = await parseFavIco(dom, link);
+    console.log("from create" + favicon);
     var title = await parseTitle(dom);
     var description = await parseDescription(dom);
-    console.log("Description: " + description);
     var owner = userId;
     var date = new Date();
     const bookmark = new Bookmark({
