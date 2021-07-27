@@ -19,9 +19,7 @@ async function login(body) {
       username: user.username,
       email: user.email,
     };
-    const token = jwt.sign({ payload }, config.get("jwtSecret"), {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign({ payload }, config.get("jwtSecret"));
     return { status: 200, token };
   } catch (error) {
     return { status: 400, message: "Something went wong ( " + error };
