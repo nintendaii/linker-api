@@ -6,8 +6,8 @@ const routes = require("./routes");
 const cors = require("cors");
 
 const app = express();
-//cors({ origin: "http://localhost:8080" });
-app.use(cors());
+
+app.use(cors({ origin: "*" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(routes);

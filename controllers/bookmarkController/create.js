@@ -14,7 +14,6 @@ async function create(body, userId) {
     }
     const dom = await getDOM(link);
     var favicon = await parseFavIco(dom, link);
-    console.log("from create" + favicon);
     var title = await parseTitle(dom);
     var description = await parseDescription(dom);
     var owner = userId;
@@ -28,14 +27,15 @@ async function create(body, userId) {
       date,
       owner,
     });
-    let result = await bookmark.save();
-    if (category) {
-      const catLinks = catCandidate.links;
-      await Category.findOneAndUpdate(
-        { _id: category },
-        { links: [...catLinks, result.id] }
-      );
-    }
+    // let result = await bookmark.save();
+    // if (category) {
+    //   const catLinks = catCandidate.links;
+    //   await Category.findOneAndUpdate(
+    //     { _id: category },
+    //     { links: [...catLinks, result.id] }
+    //   );
+    // }
+    let result = bookmark;
 
     return { status: 200, code: "bookmark_created", data: result };
   } catch (error) {
