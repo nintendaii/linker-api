@@ -27,14 +27,14 @@ async function create(body, userId) {
       date,
       owner,
     });
-    // let result = await bookmark.save();
-    // if (category) {
-    //   const catLinks = catCandidate.links;
-    //   await Category.findOneAndUpdate(
-    //     { _id: category },
-    //     { links: [...catLinks, result.id] }
-    //   );
-    // }
+    let result = await bookmark.save();
+    if (category) {
+      const catLinks = catCandidate.links;
+      await Category.findOneAndUpdate(
+        { _id: category },
+        { links: [...catLinks, result.id] }
+      );
+    }
     let result = bookmark;
 
     return { status: 200, code: "bookmark_created", data: result };
