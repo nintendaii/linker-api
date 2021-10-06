@@ -35,7 +35,6 @@ async function create(body, userId) {
         { links: [...catLinks, result.id] }
       );
     }
-    let result = bookmark;
 
     return { status: 200, code: "bookmark_created", data: result };
   } catch (error) {
